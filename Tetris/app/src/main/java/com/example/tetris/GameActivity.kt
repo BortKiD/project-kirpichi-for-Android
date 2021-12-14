@@ -15,6 +15,7 @@ class GameActivity : AppCompatActivity() {
     val column = 26
     var start = true
     var speed: Long = 300
+    var go = 0
 
     var top = 0
     var bottom = 0
@@ -106,10 +107,10 @@ class GameActivity : AppCompatActivity() {
 
                     for (i in 0 until row) {
                         for (j in 0 until column) {
-                                if ((i == 0 || i == row - 1) || (j == 0 || j == column - 1)) {
+                                if ((i == 0 || i == row - 1) || (j == 0 || j == column - 1) || board[i][j] == 2) {
                                     boardView[i][j]!!.setImageResource(R.drawable.stable)
                                     board[i][j] = 2
-                                } else if(board[i][j] == 1) {
+                                } else if (board[i][j] == 1) {
                                     boardView[i][j]!!.setImageResource(R.drawable.falling)
                                 } else {
                                     boardView[i][j]!!.setImageResource(R.drawable.back)
@@ -152,22 +153,19 @@ class GameActivity : AppCompatActivity() {
                                     board[k][j] = board[k - 1][j]
                         }
                     }
-/* Plan B
-                    try {
-                        for (i in 0 until piece.pieceRow) {
-                            for (j in 0 until piece.pieceCol) {
-                                if (piece.piece[i][j] == 1) {
-                                    boardView[piece.px + i][piece.py + j]!!.setImageResource(R.drawable.falling)
-                                }
-                            }
-                        }
-                    } catch (e: ArrayIndexOutOfBoundsException ) {
-                        start = false
-                    }
 
- */
+                    for (i in 1 until column - 1) {
+                        if (board[2][i] == 2) {
+                            go = 1
+                            start = false
+                            finish()
+                        }
+                    }
                 }
             }
         }.start()
+
+        if (go == 1)
+            this.finish()
     }
 }

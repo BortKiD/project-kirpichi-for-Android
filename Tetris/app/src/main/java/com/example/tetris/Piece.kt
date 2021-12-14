@@ -182,7 +182,7 @@ class Piece {
         for(i in 0 until pieceRow) {
             for (j in 0 until pieceCol) {
                 if(this.piece[i][j] == 1) {
-                    board[this.px+i][this.py+j] = 1
+                    board[this.px+i][this.py+j] = 2
                 }
             }
         }
